@@ -1,0 +1,107 @@
+/**
+ * Makes an image hover zoomable
+ * @constructor
+ * @param el - the element to zoomify, must be in a div
+ */
+function HoverZoom($par, config) {
+
+	this.$par = $par;
+	this.$img = this.$par.find('img');
+
+	//maximum resolution of source image
+	this.resY = this.$img[0].naturalHeight;
+	this.resX = this.$img[0].naturalWidth;
+	this.$par.addClass('hz-hover-wrapper');
+
+	if (config) {
+		this.viewHeight = config.viewHeight || 150;
+		this.viewWidth = config.viewWidth || 200;
+		this.zoom = config.zoom || Math.max(1, Math.min(this.resX / this.$img.outerWidth(), this.resY / this.$img.outerHeight()));
+	} else {
+		this.viewHeight = 150;
+		this.viewWidth = 200;
+		this.zoom = Math.max(1, Math.min(this.resX / this.$img.outerWidth(), this.resY /this.$img.outerHeight()));
+	}
+
+	this.createElements();
+	this.bindEvents();
+}
+
+HoverZoom.prototype = {
+	init: function(config) {
+
+	},
+
+	createElements: function() {
+		this.$wrapper = $('<div class="hz-hover-mask-wrapper"></div>');
+		this.$top = $('<div class="hz-top-mask hz-hover-mask"></div>');
+		this.$center = $('<div class="hz-hover-mask-center-box"></div>');
+		this.$left = $('<div class="hz-left-mask hz-hover-mask"></div>');
+		this.$visible = $('<div class="hz-visible-mask"></div>');
+		this.$right = $('<div class="hz-right-mask hz-hover-mask"></div>');
+		this.$bottom = $('<div class="hz-bottom-mask hz-hover-mask"></div>');
+		this.$zoomedWrapper = $('<div class="hz-zoomed-wrapper"></div>');
+		this.$zoomedImg = $('<img class="hz-zoomed-img" />');
+
+		this.$visible.css({
+			height: this.viewHeight + 'px',
+			width: this.viewWidth + 'px'
+		});
+		this.$zoomedWrapper.css({
+			height: (this.viewHeight * this.zoom + 'px'),
+			width: (this.viewWidth * this.zoom + 'px'),
+			right: (-1 * this.viewWidth * this.zoom + 'px')
+		});
+
+		console.log(this.viewHeight * this.zoom);
+
+		this.$zoomedWrapper.addClass('hz-hidden');
+		this.$zoomedImg.attr('src', this.$img.attr('src'));
+
+		//append
+		this.$par.append(this.$zoomedWrapper);
+		this.$zoomedWrapper.append(this.$zoomedImg);
+		this.$par.append(this.$wrapper);
+		this.$wrapper.append(this.$top);
+		this.$wrapper.append(this.$center);
+		this.$center.append(this.$left);
+		this.$center.append(this.$visible);
+		this.$center.append(this.$right);
+		this.$wrapper.append(this.$bottom);
+
+
+	},
+
+	bindEvents: function() {
+		this.$wrapper.on('mouseenter', '', this, function(event) {
+			$('.hz-hover-mask').removeClass('hz-hidden');
+			event.data.$zoomedWrapper.removeClass('hz-hidden');
+			event.data.handler = event.data.$wrapper.on('mousemove', '', event.data, function(event) {
+				console.log('mousemove');
+				var top = Math.min(event.data.$img.outerHeight() - event.data.viewHeight, Math.max(event.clientY - event.data.$wrapper.offset().top - (event.data.viewHeight / 2), 0));
+				var left = Math.max(event.clientX - event.data.$wrapper.offset().left - (event.data.viewWidth / 2), 0);
+				var bottom = Math.max(event.data.$wrapper.outerHeight() - top - (event.data.viewHeight), 0);
+				var right = Math.max(event.data.$wrapper.outerWidth() - left - (event.data.viewWidth), 0);
+
+				event.data.$top.css('min-height', top);
+				event.data.$left.css('max-width', left);
+				event.data.$right.css('max-width', right);
+				event.data.$bottom.css('min-height', bottom);
+
+				event.data.$zoomedImg.css({
+					top: -1 * (top + (event.data.viewHeight * 0)) * event.data.zoom,
+					left: -1 * (left + (event.data.viewWidth * 0)) * event.data.zoom
+				});
+
+			});
+
+			console.log('mouseenter');
+		});
+		this.$wrapper.on('mouseleave', '', this, function(event) {
+			event.data.$wrapper.off('mousemove');
+			$('.hz-hover-mask').addClass('hz-hidden');
+			event.data.$zoomedWrapper.addClass('hz-hidden');
+			console.log('mouseout');
+		});
+	}
+};
