@@ -53,7 +53,6 @@ HoverZoom.prototype = {
 			right: (-1 * this.viewWidth * this.zoom + 'px')
 		});
 
-		console.log(this.viewHeight * this.zoom);
 
 		this.$zoomedWrapper.addClass('hz-hidden');
 		this.$zoomedImg.attr('src', this.$img.attr('src'));
@@ -69,7 +68,7 @@ HoverZoom.prototype = {
 		this.$center.append(this.$right);
 		this.$wrapper.append(this.$bottom);
 
-
+		$('.hz-hover-mask').addClass('hz-hidden');
 	},
 
 	bindEvents: function() {
@@ -77,9 +76,8 @@ HoverZoom.prototype = {
 			$('.hz-hover-mask').removeClass('hz-hidden');
 			event.data.$zoomedWrapper.removeClass('hz-hidden');
 			event.data.handler = event.data.$wrapper.on('mousemove', '', event.data, function(event) {
-				console.log('mousemove');
 				var top = Math.min(event.data.$img.outerHeight() - event.data.viewHeight, Math.max(event.clientY - event.data.$wrapper.offset().top - (event.data.viewHeight / 2), 0));
-				var left = Math.max(event.clientX - event.data.$wrapper.offset().left - (event.data.viewWidth / 2), 0);
+				var left = Math.min(event.data.$img.outerWidth() - event.data.viewWidth, Math.max(event.clientX - event.data.$wrapper.offset().left - (event.data.viewWidth / 2), 0));
 				var bottom = Math.max(event.data.$wrapper.outerHeight() - top - (event.data.viewHeight), 0);
 				var right = Math.max(event.data.$wrapper.outerWidth() - left - (event.data.viewWidth), 0);
 
@@ -95,13 +93,11 @@ HoverZoom.prototype = {
 
 			});
 
-			console.log('mouseenter');
 		});
 		this.$wrapper.on('mouseleave', '', this, function(event) {
 			event.data.$wrapper.off('mousemove');
 			$('.hz-hover-mask').addClass('hz-hidden');
 			event.data.$zoomedWrapper.addClass('hz-hidden');
-			console.log('mouseout');
 		});
 	}
 };
