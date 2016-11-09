@@ -34,15 +34,15 @@ HoverZoom.prototype = {
 	 * Creates, styles, and inserts the necessary elements for the Hover to Zoom feature
 	 */
 	createElements: function() {
-		this.$wrapper = $('<div class="hz-hover-mask-wrapper"></div>');
-		this.$top = $('<div class="hz-top-mask hz-hover-mask"></div>');
-		this.$center = $('<div class="hz-hover-mask-center-box"></div>');
-		this.$left = $('<div class="hz-left-mask hz-hover-mask"></div>');
-		this.$visible = $('<div class="hz-visible-mask"></div>');
-		this.$right = $('<div class="hz-right-mask hz-hover-mask"></div>');
-		this.$bottom = $('<div class="hz-bottom-mask hz-hover-mask"></div>');
-		this.$zoomedWrapper = $('<div class="hz-zoomed-wrapper"></div>');
-		this.$zoomedImg = $('<img class="hz-zoomed-img" />');
+		this.$wrapper = jQuery('<div class="hz-hover-mask-wrapper"></div>');
+		this.$top = jQuery('<div class="hz-top-mask hz-hover-mask"></div>');
+		this.$center = jQuery('<div class="hz-hover-mask-center-box"></div>');
+		this.$left = jQuery('<div class="hz-left-mask hz-hover-mask"></div>');
+		this.$visible = jQuery('<div class="hz-visible-mask"></div>');
+		this.$right = jQuery('<div class="hz-right-mask hz-hover-mask"></div>');
+		this.$bottom = jQuery('<div class="hz-bottom-mask hz-hover-mask"></div>');
+		this.$zoomedWrapper = jQuery('<div class="hz-zoomed-wrapper"></div>');
+		this.$zoomedImg = jQuery('<img class="hz-zoomed-img" />');
 
 		this.$visible.css({
 			height: this.viewHeight + 'px',
@@ -72,7 +72,7 @@ HoverZoom.prototype = {
 		this.$center.append(this.$right);
 		this.$wrapper.append(this.$bottom);
 
-		$('.hz-hover-mask').addClass('hz-hidden');
+		jQuery('.hz-hover-mask').addClass('hz-hidden');
 	},
 
 	/**
@@ -80,7 +80,7 @@ HoverZoom.prototype = {
 	 */
 	bindEvents: function() {
 		this.$wrapper.on('mouseenter', '', this, function(event) {
-			$('.hz-hover-mask').removeClass('hz-hidden');
+			jQuery('.hz-hover-mask').removeClass('hz-hidden');
 			event.data.$zoomedWrapper.removeClass('hz-hidden');
 			event.data.handler = event.data.$wrapper.on('mousemove', '', event.data, function(event) {
 				var top = Math.min(event.data.$img.outerHeight() - event.data.viewHeight, Math.max(event.clientY - event.data.$wrapper.offset().top - (event.data.viewHeight / 2), 0));
@@ -101,7 +101,7 @@ HoverZoom.prototype = {
 		});
 		this.$wrapper.on('mouseleave', '', this, function(event) {
 			event.data.$wrapper.off('mousemove');
-			$('.hz-hover-mask').addClass('hz-hidden');
+			jQuery('.hz-hover-mask').addClass('hz-hidden');
 			event.data.$zoomedWrapper.addClass('hz-hidden');
 		});
 	}
