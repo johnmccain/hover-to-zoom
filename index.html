@@ -1,116 +1,112 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title>Hover to Zoom</title>
+    <head>
+        <title>Hover to Zoom</title>
 
-    <script src="js/HoverZoom.js"></script>
+        <script src="js/HoverZoom.js"></script>
 
-    <style>
-        body {
-            font-family: sans-serif;
-        }
+        <style>
+            body {
+                font-family: sans-serif;
+            }
 
-        #img {
-            width: 600px;
-        }
+            #img {
+                width: 600px;
+            }
 
-        .hz-hover-wrapper {
-            display: inline-block;
-            position: relative;
-            z-index: 0;
-        }
+            .hz-hover-wrapper {
+                display: inline-block;
+                position: relative;
+                z-index: 0;
+            }
 
-        .hz-hover-mask-wrapper {
-            position: absolute;
-            top: 0;
-            right: 0;
-            left: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-        }
+            .hz-hover-mask-wrapper {
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                display: flex;
+                flex-direction: column;
+            }
 
-        .hz-hover-mask-center-box {
-            display: flex;
-            flex-wrap: wrap;
-            z-index: 999;
-            width: 100%;
-            transition: opacity 0.2s;
-            -webkit-transition: opacity 0.2s;
-            -moz-transition: opacity 0.2s;
-            -ms-transition: opacity 0.2s;
-            -o-transition: opacity 0.2s;
-        }
+            .hz-hover-mask-center-box {
+                display: flex;
+                flex-wrap: wrap;
+                z-index: 999;
+                width: 100%;
+                transition: opacity 0.2s;
+                -webkit-transition: opacity 0.2s;
+                -moz-transition: opacity 0.2s;
+                -ms-transition: opacity 0.2s;
+                -o-transition: opacity 0.2s;
+            }
 
-        .hz-hover-mask {
-            background-color: rgba(255, 255, 255, 0.4);
-            transition: all 0.1s;
-        }
+            .hz-hover-mask {
+                background-color: rgba(255, 255, 255, 0.4);
+                transition: all 0.1s;
+            }
 
-        .hz-visible-mask {
-            transition: all 0.1s;
-        }
+            .hz-visible-mask {
+                transition: all 0.1s;
+            }
 
-        .hz-top-mask {
-            height: auto;
-            width: 100%;
-            flex-grow: 1;
-            flex-shrink: 1;
-            flex-basis: auto;
-        }
+            .hz-bottom-mask,
+            .hz-top-mask {
+                height: auto;
+                width: 100%;
+                flex-grow: 1;
+                flex-shrink: 1;
+            }
 
-        .hz-bottom-mask {
-            height: auto;
-            width: 100%;
-            flex-grow: 1;
-            flex-shrink: 1;
-        }
+            .hz-left-mask,
+            .hz-right-mask {
+                flex-basis: auto;
+                flex-grow: 1;
+                flex-shrink: 1;
+            }
 
-        .hz-left-mask,
-        .hz-right-mask {
-            flex-basis: auto;
-            flex-grow: 1;
-            flex-shrink: 1;
-        }
+            .hz-hidden {
+                display: none;
+                opacity: 0;
+            }
 
-        .hz-hidden {
-            display: none;
-            opacity: 0;
-        }
+            .hz-zoomed-wrapper {
+                top: 0;
+                position: absolute;
+                overflow: hidden;
+                transition: all 0.1s;
+                box-shadow: 1px 2px 3px 2px rgba(0, 0, 0, 0.3);
+                z-index: 999;
+            }
 
-        .hz-zoomed-wrapper {
-            top:0;
-            position: absolute;
-            overflow: hidden;
-            transition: all 0.1s;
-        }
+            .hz-zoomed-img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                transition: all 0.1s;
+            }
 
-        .hz-zoomed-img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: all 0.1s;
-        }
-    </style>
+        </style>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script>
 
-        var hz;
-        $(function() {
-            hz = new HoverZoom($('#img-container'));
-        });
-    </script>
+            var hz;
+            $(function() {
+                hz = new HoverZoom($('#img-container'), {zoom: 3.6});
+            });
+        </script>
 
-</head>
+    </head>
 
-<body>
-    <h1>Hover to Zoom</h1>
-    <br>
-    <div id="img-container">
-        <img id="img" width="500px" src="img/galaxy.jpg" />
-    </div>
-</body>
+    <body>
+        <h1>Hover to Zoom</h1>
+        <br>
+        <div id="img-container">
+            <img id="img" width="500px" src="img/galaxy.jpg"/>
+        </div>
+    </body>
 
 </html>

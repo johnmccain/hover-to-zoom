@@ -1,11 +1,13 @@
 /**
  * Makes an image hover zoomable
+ * Requires jQuery
  * @constructor
- * @param el - the element to zoomify, must be in a div
+ * @param {jQueryelement} par - a div containing the image you would like to make hover-zoomable
+ * @param {object} config -
  */
-function HoverZoom($par, config) {
+function HoverZoom(par, config) {
 
-	this.$par = $par;
+	this.$par = par;
 	this.$img = this.$par.find('img');
 
 	//maximum resolution of source image
@@ -28,10 +30,9 @@ function HoverZoom($par, config) {
 }
 
 HoverZoom.prototype = {
-	init: function(config) {
-
-	},
-
+	/**
+	 * Creates, styles, and inserts the necessary elements for the Hover to Zoom feature
+	 */
 	createElements: function() {
 		this.$wrapper = $('<div class="hz-hover-mask-wrapper"></div>');
 		this.$top = $('<div class="hz-top-mask hz-hover-mask"></div>');
@@ -53,6 +54,9 @@ HoverZoom.prototype = {
 			right: (-1 * this.viewWidth * this.zoom + 'px')
 		});
 
+		this.$zoomedImg.css({
+			width: this.$img.outerWidth() * this.zoom
+		});
 
 		this.$zoomedWrapper.addClass('hz-hidden');
 		this.$zoomedImg.attr('src', this.$img.attr('src'));
@@ -71,6 +75,9 @@ HoverZoom.prototype = {
 		$('.hz-hover-mask').addClass('hz-hidden');
 	},
 
+	/**
+	 * Binds events for the hover to zoom feature
+	 */
 	bindEvents: function() {
 		this.$wrapper.on('mouseenter', '', this, function(event) {
 			$('.hz-hover-mask').removeClass('hz-hidden');
@@ -90,9 +97,7 @@ HoverZoom.prototype = {
 					top: -1 * (top + (event.data.viewHeight * 0)) * event.data.zoom,
 					left: -1 * (left + (event.data.viewWidth * 0)) * event.data.zoom
 				});
-
 			});
-
 		});
 		this.$wrapper.on('mouseleave', '', this, function(event) {
 			event.data.$wrapper.off('mousemove');
