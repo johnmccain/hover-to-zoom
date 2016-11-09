@@ -70,3 +70,11 @@
 	left: 0;
 	transition: all 0.1s;
 }
+
+@media (max-width: 768px) {
+	.hz-hover-mask,
+	.hz-zoomed-wrapper,
+	.hz-zoomed-img {
+		display: none;
+	}
+}
