@@ -79,10 +79,10 @@ HoverZoom.prototype = {
 	 * Binds events for the hover to zoom feature
 	 */
 	bindEvents: function() {
-		this.$wrapper.on('mouseenter', '', this, function(event) {
+		this.$wrapper.bind('mouseenter', this, function(event) {
 			jQuery('.hz-hover-mask').removeClass('hz-hidden');
 			event.data.$zoomedWrapper.removeClass('hz-hidden');
-			event.data.handler = event.data.$wrapper.on('mousemove', '', event.data, function(event) {
+			event.data.handler = event.data.$wrapper.bind('mousemove', event.data, function(event) {
 				var top = Math.min(event.data.$img.outerHeight() - event.data.viewHeight, Math.max(event.clientY - event.data.$wrapper.offset().top - (event.data.viewHeight / 2), 0));
 				var left = Math.min(event.data.$img.outerWidth() - event.data.viewWidth, Math.max(event.clientX - event.data.$wrapper.offset().left - (event.data.viewWidth / 2), 0));
 				var bottom = Math.max(event.data.$wrapper.outerHeight() - top - (event.data.viewHeight), 0);
@@ -99,8 +99,8 @@ HoverZoom.prototype = {
 				});
 			});
 		});
-		this.$wrapper.on('mouseleave', '', this, function(event) {
-			event.data.$wrapper.off('mousemove');
+		this.$wrapper.bind('mouseleave', this, function(event) {
+			event.data.$wrapper.unbind('mousemove');
 			jQuery('.hz-hover-mask').addClass('hz-hidden');
 			event.data.$zoomedWrapper.addClass('hz-hidden');
 		});
