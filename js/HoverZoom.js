@@ -27,8 +27,11 @@ function HoverZoom(par, config) {
 	if (config) {
 		this.zoom = config.zoom || Math.max(1, Math.min(this.resX / this.imgWidth, this.resY / this.imgHeight));
 	} else {
-		this.zoom = Math.max(1, Math.min(this.resX / this.imgWidth, this.resY /this.imgHeight));
+		this.zoom = Math.max(1, Math.min(this.resX / this.imgWidth, this.resY / this.imgHeight));
 	}
+
+	console.log('Native Resolution: ' + this.resX + ' x ' + this.resY + '\nImage size: ' + this.imgWidth + ' x ' + this.imgHeight + '\nZoom ratio: ' + this.zoom);
+
 
 	this.bindEvents();
 }
