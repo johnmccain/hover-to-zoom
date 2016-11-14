@@ -6,7 +6,7 @@
 }
 
 .hz-image {
-	position: absolute;
+	position: absolute !important;
 }
 
 .hz-hidden {

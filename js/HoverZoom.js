@@ -9,12 +9,10 @@ function HoverZoom(par, config) {
 
 	this.$par = par;
 	this.$img = this.$par.find('img');
-	this.$img.addClass('hz-image');
 
 	//maximum resolution of source image
 	this.resY = this.$img[0].naturalHeight;
 	this.resX = this.$img[0].naturalWidth;
-	this.$par.addClass('hz-hover-wrapper');
 
 	this.imgHeight = this.$img.height();
 	this.imgWidth = this.$img.width();
@@ -32,6 +30,8 @@ function HoverZoom(par, config) {
 
 	console.log('Native Resolution: ' + this.resX + ' x ' + this.resY + '\nImage size: ' + this.imgWidth + ' x ' + this.imgHeight + '\nZoom ratio: ' + this.zoom);
 
+	this.$par.addClass('hz-hover-wrapper');
+	this.$img.addClass('hz-image');
 
 	this.bindEvents();
 }
@@ -58,11 +58,10 @@ HoverZoom.prototype = {
 					leftTime = 1;
 				}
 
+				event.data.$img.css('cssText', 'width: ' + event.data.imgWidth * event.data.zoom + 'px !important;' + ' height: ' + event.data.imgHeight * event.data.zoom + 'px !important');
 				event.data.$img.css({
 					top: top,
-					left: left,
-					width: event.data.imgWidth * event.data.zoom,
-					height: event.data.imgHeight * event.data.zoom
+					left: left
 				});
 			});
 		});
