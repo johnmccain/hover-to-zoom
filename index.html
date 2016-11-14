@@ -24,8 +24,9 @@
 
             var hz;
             jQuery(function() {
-                hz = new HoverZoom(jQuery('#img-container'));
-                $('#test').html('woop');
+                window.setTimeout(function() {
+                    hz = new HoverZoom(jQuery('#img-container'), {zoom: 2});
+                }, 3000);
             });
 
         </script>
@@ -39,6 +40,32 @@
         <div id="img-container">
             <img id="img" src="img/galaxy.jpg"/>
         </div>
+
+        <div style="width: 200px; height: 800px; background-color: #5372C3;">
+            <p> test test test test test test test test </p>
+            <p> test test test test test test test test </p>
+            <p> test test test test test test test test </p>
+            <p> test test test test test test test test </p>
+            <p> test test test test test test test test </p>
+            <p> test test test test test test test test </p>
+            <p> test test test test test test test test </p>
+            <p> test test test test test test test test </p>
+            <p> test test test test test test test test </p>
+        </div>
+        <p> test test test test test test test test </p>
+        <p> test test test test test test test test </p>
+        <p> test test test test test test test test </p>
+        <p> test test test test test test test test </p>
+        <p> test test test test test test test test </p>
+        <p> test test test test test test test test </p>
+        <p> test test test test test test test test </p>
+        <p> test test test test test test test test </p>
+        <p> test test test test test test test test </p>
+        <p> test test test test test test test test </p>
+        <p> test test test test test test test test </p>
+        <p> test test test test test test test test </p>
+
+
     </body>
 
 </html>
